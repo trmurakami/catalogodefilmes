@@ -66,22 +66,17 @@ if (isset($_REQUEST['delete'])) {
         <div class="row">
             <div class="col-8">
                 <h1><?php echo $cursor["_source"]["name"]; ?></h1>
+                <?php if (isset($cursor["_source"]["workTranslation"])) : ?>
+                    <h5>Título nacional: <?php echo $cursor["_source"]["workTranslation"]; ?></h5>
+                <?php endif; ?>                      
                 <h5>ID: <?php echo $cursor["_id"]; ?></h5>
-                <h5>Autor(es): <?php echo implode('; ', $cursor["_source"]["contributor"]); ?></h5>
+                <h5>Diretor(es): <?php echo implode('; ', $cursor["_source"]["director"]); ?></h5>
+                <h5>Intérpretes: <?php echo implode('; ', $cursor["_source"]["actor"]); ?></h5>
                 <?php if (isset($cursor["_source"]["editions"])) : ?>
                     <h5>Edição: <?php echo $cursor["_source"]["editions"]; ?></h5>
                 <?php endif; ?>                
-                <h5>Editora: <?php echo $cursor["_source"]["publisher"]; ?></h5>
-                <h5>Data de publicação: <?php echo $cursor["_source"]["date"]; ?></h5>
-                <?php if (isset($cursor["_source"]["physicalDescriptions"])) : ?>
-                    <h5>Descrição física: <?php echo $cursor["_source"]["physicalDescriptions"]; ?></h5>
-                <?php endif; ?> 
-                <?php if (isset($cursor["_source"]["languages"][0]["name"])) : ?>
-                    <h5>Idioma: <?php echo $cursor["_source"]["languages"][0]["name"]; ?></h5>
-                <?php endif; ?>                               
-                <?php if (isset($cursor["_source"]["identifier"][0]["value"])) : ?>
-                    <h5>ISBN: <?php echo $cursor["_source"]["identifier"][0]["value"]; ?></h5>
-                <?php endif; ?>
+                <h5>País de produção: <?php echo implode('; ', $cursor["_source"]["countryOfOrigin"]); ?></h5>
+                <h5>Data de publicação: <?php echo $cursor["_source"]["datePublished"]; ?></h5>
                 <?php if (isset($cursor["_source"]["subjects"])) : ?>
                     <h5>Assunto(s): <?php echo implode('; ', $cursor["_source"]["subjects"]); ?></h5>
                 <?php endif; ?>                
@@ -90,14 +85,7 @@ if (isset($_REQUEST['delete'])) {
                 <?php endif; ?>
                 <?php if (isset($cursor["_source"]["notes"])) : ?>
                     <h5>Nota: <?php echo $cursor["_source"]["notes"]; ?></h5>
-                <?php endif; ?>
-
-                <?php
-                    $path_pdf = 'pdfs/'.$cursor["_id"].'.pdf';
-                    if (file_exists($path_pdf)) {
-                        echo  '<a class="btn btn-warning" href="'.$path_pdf.'" target="_blank" >Acessar o PDF</a>';
-                    } 
-                ?>
+                <?php endif; ?> 
 
                 <?php if (isset($cursor["_source"]["circ"])) : ?>
                     <?php if (count($cursor["_source"]["circ"]) == 1) : ?>

@@ -13,9 +13,7 @@ if (isset($_FILES['cover']['name'])) {
         $file = $_FILES['cover']['name'];
         $path = pathinfo($file);
 
-        if (!empty($_REQUEST["isbn"])) {
-            $filename = $_REQUEST["isbn"];
-        } elseif (!empty($_REQUEST["ID"])) {
+        if (!empty($_REQUEST["ID"])) {
             $filename = $_REQUEST["ID"];
         } else {
             $filename = $path['filename'];
@@ -39,12 +37,17 @@ if (isset($_REQUEST["ID"])) {
     $query["doc"]["name"] = $_REQUEST["name"];
     $query["doc"]["workTranslation"] = $_REQUEST["workTranslation"];
     if (!empty($_REQUEST["director"])) {
-        $query["doc"]["director"] = explode(";", $_REQUEST["director"]);
+        $query["doc"]["director"] = array_map('trim', explode(';', $_REQUEST["director"]));
     }
     if (!empty($_REQUEST["actor"])) {
-        $query["doc"]["actor"] = explode(";", $_REQUEST["actor"]);
+        $query["doc"]["actor"] = array_map('trim', explode(';', $_REQUEST["actor"]));
     }
-    
+    if (!empty($_REQUEST["countryOfOrigin"])) {
+        $query["doc"]["countryOfOrigin"] = array_map('trim', explode(';', $_REQUEST["countryOfOrigin"]));
+    }
+    if (!empty($_REQUEST["datePublished"])) {
+        $query["doc"]["datePublished"] = $_REQUEST["datePublished"];
+    }    
 
     $query["doc_as_upsert"] = true;
     //print_r($query);
@@ -81,7 +84,25 @@ if (isset($_REQUEST["_id"])) {
         $directorValue = implode(";", $cursor["_source"]["director"]);
     } else {
         $directorValue = "";
-    }     
+    }
+    
+    if (isset($cursor["_source"]["actor"])) {
+        $actorValue = implode(";", $cursor["_source"]["actor"]);
+    } else {
+        $actorValue = "";
+    }
+    
+    if (isset($cursor["_source"]["countryOfOrigin"])) {
+        $countryOfOriginValue = implode(";", $cursor["_source"]["countryOfOrigin"]);
+    } else {
+        $countryOfOriginValue = "";
+    }
+    
+    if (isset($cursor["_source"]["datePublished"])) {
+        $datePublishedValue = $cursor["_source"]["datePublished"];
+    } else {
+        $datePublishedValue = "";
+    }        
 
 }
 
@@ -96,6 +117,38 @@ if (!isset($directorValue)) {
     $directorValue = "";
 }
 
+if (!isset($actorValue)) {
+    $actorValue = "";
+}
+
+if (!isset($countryOfOriginValue)) {
+    $countryOfOriginValue = "";
+}
+
+if (!isset($datePublishedValue)) {
+    $datePublishedValue = "";
+}
+
+if (!isset($physicalDescriptionsValue)) {
+    $physicalDescriptionsValue = "";
+}
+
+if (!isset($keywordsValue)) {
+    $keywordsValue = "";
+}
+
+if (!isset($genreValue)) {
+    $genreValue = "";
+}
+
+if (!isset($locationValue)) {
+    $locationValue = "";
+}
+
+if (!isset($notesValue)) {
+    $notesValue = "";
+}
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -106,7 +159,7 @@ if (!isset($directorValue)) {
     <meta name="author" content="Tiago Murakami">
     <title>Editor</title>
 
-    <link rel="canonical" href="https://github.com/trmurakami/bibliolight">
+    <link rel="canonical" href="https://github.com/trmurakami/cinelight">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -229,7 +282,7 @@ if (!isset($directorValue)) {
     </div>
     <div class="custom-file">
         <input type="file" class="custom-file-input" id="customFile" name="cover">
-        <label class="custom-file-label" for="customFile">Selecionar arquivo de capa. Somente formato .jpg</label>
+        <label class="custom-file-label" for="customFile">Selecionar arquivo do cartaz. Somente formato .jpg</label>
     </div> 
     <br/><br/>              
     <button type="submit" class="btn btn-primary">Salvar</button>

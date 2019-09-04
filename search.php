@@ -88,8 +88,12 @@ if (isset($_GET["sort"])) {
                                 }                               
                                 echo '<p class="card-text">';
 
-                                if (!empty($r["_source"]["contributor"])) {
-                                    echo '<small class="text-muted">Autor(es): '.implode(";", $r["_source"]["contributor"]).'</small><br/>';
+                                if (!empty($r["_source"]["workTranslation"])) {
+                                    echo '<small class="text-muted">Título nacional: '.$r["_source"]["workTranslation"].'</small><br/>';
+                                }                                
+
+                                if (!empty($r["_source"]["director"])) {
+                                    echo '<small class="text-muted">Diretor(es): '.implode(";", $r["_source"]["director"]).'</small><br/>';
                                 }
                                 if (!empty($r["_source"]["editions"])) {
                                     echo '<small class="text-muted">Edição: '.$r["_source"]["editions"].'</small><br/>';
@@ -97,8 +101,8 @@ if (isset($_GET["sort"])) {
                                 if (!empty($r["_source"]["publisher"])) {
                                     echo '<small class="text-muted">Editora: '.$r["_source"]["publisher"].'</small><br/>';
                                 }
-                                if (!empty($r["_source"]["date"])) {
-                                    echo '<small class="text-muted">Data de publicação: '.$r["_source"]["date"].'</small><br/>';
+                                if (!empty($r["_source"]["datePublished"])) {
+                                    echo '<small class="text-muted">Ano de produção: '.$r["_source"]["datePublished"].'</small><br/>';
                                 }
                                 if (!empty($r["_source"]["identifier"])) {
                                     echo '<small class="text-muted">ISBN: '.$r["_source"]["identifier"][0]["value"].'</small><br/>';
@@ -134,9 +138,11 @@ if (isset($_GET["sort"])) {
                         if (!isset($_GET["search"])) {
                             $_GET["search"] = null;
                         }
+                            $facets->facet("director", 50, "Diretores", null, "_term", $_GET, true);
                             $facets->facet("actor", 50, "Interprétes", null, "_term", $_GET, true);
                             $facets->facet("publisher", 50, "Editoras", null, "_term", $_GET, true);
-                            $facets->facet("date", 50, "Data de publicação", "desc", "_term", $_GET, true);
+                            $facets->facet("datePublished", 50, "Ano de produção", "desc", "_term", $_GET, true);
+                            $facets->facet("countryOfOrigin", 50, "País de produção", null, "_term", $_GET, true);
                             $facets->facet("subjects", 50, "Assuntos", null, "_term", $_GET, true);
                             $facets->facet("languages.name", 50, "Idioma", null, "_term", $_GET, true);
                         ?>
