@@ -40,7 +40,7 @@
 
         <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
             <h1 class="display-4"><?php echo $library_name; ?></h1>
-            <p class="lead">Ferramenta de gestão de acervo da <?php echo $library_name; ?>.</p>
+            <p class="lead">Ferramenta de gestão de acervo de filmes <?php echo $library_name; ?>.</p>
 
             <?php isset($error_connection_message) ? print_r($error_connection_message) : '' ?>
 
