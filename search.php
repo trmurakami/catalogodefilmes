@@ -81,8 +81,8 @@ if (isset($_GET["sort"])) {
                             <div class="col-md-10">
                             <div class="card-body">';
 
-                                if (!empty($r["_source"]["title"])) {
-                                    echo ' <h5 class="card-title"><a href="node.php?_id='.$r["_id"].'">'.$r["_source"]["title"].'</a></h5>';
+                                if (!empty($r["_source"]["name"])) {
+                                    echo ' <h5 class="card-title"><a href="node.php?_id='.$r["_id"].'">'.$r["_source"]["name"].'</a></h5>';
                                 } else {
                                     echo '<h5 class="card-title"><a href="node.php?_id='.$r["_id"].'">'.$r["_id"].'</a></h5>';
                                 }                               
@@ -134,7 +134,7 @@ if (isset($_GET["sort"])) {
                         if (!isset($_GET["search"])) {
                             $_GET["search"] = null;
                         }
-                            $facets->facet("contributor", 50, "Autores", null, "_term", $_GET, true);
+                            $facets->facet("actor", 50, "Interprétes", null, "_term", $_GET, true);
                             $facets->facet("publisher", 50, "Editoras", null, "_term", $_GET, true);
                             $facets->facet("date", 50, "Data de publicação", "desc", "_term", $_GET, true);
                             $facets->facet("subjects", 50, "Assuntos", null, "_term", $_GET, true);

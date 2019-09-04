@@ -41,7 +41,9 @@ if (isset($_REQUEST["ID"])) {
     if (!empty($_REQUEST["director"])) {
         $query["doc"]["director"] = explode(";", $_REQUEST["director"]);
     }
-
+    if (!empty($_REQUEST["actor"])) {
+        $query["doc"]["actor"] = explode(";", $_REQUEST["actor"]);
+    }
     
 
     $query["doc_as_upsert"] = true;

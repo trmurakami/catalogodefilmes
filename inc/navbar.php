@@ -6,14 +6,7 @@
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
       </form>
     </nav>     
-    <nav class="mr-md-5">
-      <form class="form-inline" action="editor.php" method="get">
-        <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar ISBN para adicionar registro" aria-label="ISBN" name="isbn">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar ISBN no Google Books</button>
-      </form>      
-    </nav>
     <nav class="my-2 my-md-0 mr-md-3">
         <a class="btn btn-outline-success" href="editor.php">Criar registro</a>
-    </nav>    
-    <!-- <a class="btn btn-outline-primary" href="login.php">Login</a> -->
+    </nav>   
 </div>

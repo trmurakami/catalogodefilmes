@@ -45,7 +45,7 @@ if (isset($_REQUEST['delete'])) {
         <meta name="description" content="">
         <meta name="author" content="Tiago Murakami">
         <title>Detalhe do registro: <?php echo $cursor["_source"]['title'];?></title>
-        <link rel="canonical" href="https://github.com/trmurakami/bibliolight">
+        <link rel="canonical" href="https://github.com/trmurakami/cinelight">
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -65,7 +65,7 @@ if (isset($_REQUEST['delete'])) {
     <div class="container">
         <div class="row">
             <div class="col-8">
-                <h1><?php echo $cursor["_source"]["title"]; ?></h1>
+                <h1><?php echo $cursor["_source"]["name"]; ?></h1>
                 <h5>ID: <?php echo $cursor["_id"]; ?></h5>
                 <h5>Autor(es): <?php echo implode('; ', $cursor["_source"]["contributor"]); ?></h5>
                 <?php if (isset($cursor["_source"]["editions"])) : ?>
