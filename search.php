@@ -144,7 +144,8 @@ if (isset($_GET["sort"])) {
                             $facets->facet("datePublished", 50, "Ano de produção", "desc", "_term", $_GET, true);
                             $facets->facet("countryOfOrigin", 50, "País de produção", null, "_term", $_GET, true);
                             $facets->facet("subjects", 50, "Assuntos", null, "_term", $_GET, true);
-                            $facets->facet("languages.name", 50, "Idioma", null, "_term", $_GET, true);
+                            $facets->facet("inLanguage", 50, "Idioma - Áudio", null, "_term", $_GET, true);
+                            $facets->facet("subtitleLanguage", 50, "Idioma - Legendas", null, "_term", $_GET, true);
                         ?>
                         
                     </div>

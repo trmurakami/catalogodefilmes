@@ -65,6 +65,7 @@ if (isset($_REQUEST['delete'])) {
     <div class="container">
         <div class="row">
             <div class="col-8">
+                <?php print_r($cursor["_source"]);?>
                 <h1><?php echo $cursor["_source"]["name"]; ?></h1>
                 <?php if (isset($cursor["_source"]["workTranslation"])) : ?>
                     <h5>Título nacional: <?php echo $cursor["_source"]["workTranslation"]; ?></h5>

@@ -33,7 +33,7 @@ if (isset($_FILES['cover']['name'])) {
 }
 
 if (isset($_REQUEST["ID"])) {
-    //print_r($_REQUEST);
+    print_r($_REQUEST);
     $query["doc"]["name"] = $_REQUEST["name"];
     $query["doc"]["workTranslation"] = $_REQUEST["workTranslation"];
     if (!empty($_REQUEST["director"])) {
@@ -76,8 +76,8 @@ if (isset($_REQUEST["ID"])) {
     //print_r($query);
     $result = Elasticsearch::update($_REQUEST["ID"], $query);
     //print_r($result);
-    sleep(2); 
-    header('Location: node.php?_id='.$_REQUEST["ID"].'');
+    //sleep(2); 
+    //header('Location: node.php?_id='.$_REQUEST["ID"].'');
 } else {
     $uuid4 = Uuid::uuid4();
     $uuid = $uuid4->toString();
@@ -274,7 +274,7 @@ if (!isset($notesValue)) {
     <div class="form-group row">
       <label for="inLanguage" class="col-sm-2 col-form-label">Idiomas - Áudio</label>
       <div class="col-10">
-          <select multiple class="form-control" id="inLanguage" name="inLanguage">
+          <select multiple class="form-control" id="inLanguage" name="inLanguage[]">
             <option selected>Escolha os idiomas abaixo</option>
             <option value="Português">Português</option>
             <option value="Inglês">Inglês</option>
@@ -287,7 +287,7 @@ if (!isset($notesValue)) {
     <div class="form-group row">
       <label for="subtitleLanguage" class="col-sm-2 col-form-label">Idiomas - Legenda</label>
       <div class="col-10">
-          <select multiple class="form-control" id="subtitleLanguage" name="subtitleLanguage">
+          <select multiple class="form-control" id="subtitleLanguage" name="subtitleLanguage[]">
             <option selected>Escolha os idiomas abaixo</option>
             <option value="Português">Português</option>
             <option value="Inglês">Inglês</option>
