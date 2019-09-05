@@ -27,7 +27,7 @@ if (isset($_FILES['cover']['name'])) {
             $alert = '<div class="alert alert-danger" role="alert">Desculpe, arquivo já existe.</div>';
         } else {
             move_uploaded_file($temp_name, $path_filename_ext);
-            $alert = '<div class="alert alert-success" role="alert">Parabéns! Capa carregada com sucesso.</div>';
+            $alert = '<div class="alert alert-success" role="alert">Parabéns! Cartaz carregado com sucesso.</div>';
         }
     }
 }
@@ -47,8 +47,31 @@ if (isset($_REQUEST["ID"])) {
     }
     if (!empty($_REQUEST["datePublished"])) {
         $query["doc"]["datePublished"] = $_REQUEST["datePublished"];
+    }     
+    if (!empty($_REQUEST["inLanguage"])) {
+        $query["doc"]["inLanguage"] = $_REQUEST["inLanguage"];
+    }
+    if (!empty($_REQUEST["subtitleLanguage"])) {
+        $query["doc"]["subtitleLanguage"] = $_REQUEST["subtitleLanguage"];
     }    
-
+    if (!empty($_REQUEST["physicalDescriptions"])) {
+        $query["doc"]["physicalDescriptions"] = $_REQUEST["physicalDescriptions"];
+    }      
+    if (!empty($_REQUEST["keywords"])) {
+        $query["doc"]["keywords"] = array_map('trim', explode(';', $_REQUEST["keywords"]));
+    }
+    if (!empty($_REQUEST["genre"])) {
+        $query["doc"]["genre"] = array_map('trim', explode(';', $_REQUEST["genre"]));
+    }          
+    if (!empty($_REQUEST["about"])) {
+        $query["doc"]["about"] = $_REQUEST["about"];
+    }
+    if (!empty($_REQUEST["location"])) {
+        $query["doc"]["location"] = $_REQUEST["location"];
+    }            
+    if (!empty($_REQUEST["notes"])) {
+        $query["doc"]["notes"] = $_REQUEST["notes"];
+    } 
     $query["doc_as_upsert"] = true;
     //print_r($query);
     $result = Elasticsearch::update($_REQUEST["ID"], $query);
@@ -102,7 +125,37 @@ if (isset($_REQUEST["_id"])) {
         $datePublishedValue = $cursor["_source"]["datePublished"];
     } else {
         $datePublishedValue = "";
-    }        
+    }
+    
+    if (isset($cursor["_source"]["physicalDescriptions"])) {
+        $physicalDescriptionsValue = $cursor["_source"]["physicalDescriptions"];
+    } else {
+        $physicalDescriptionsValue = "";
+    }
+    
+    if (isset($cursor["_source"]["keywords"])) {
+        $keywordsValue = implode(";", $cursor["_source"]["keywords"]);
+    } else {
+        $keywordsValue = "";
+    } 
+    
+    if (isset($cursor["_source"]["genre"])) {
+        $genreValue = implode(";", $cursor["_source"]["genre"]);
+    } else {
+        $genreValue = "";
+    } 
+    
+    if (isset($cursor["_source"]["about"])) {
+        $aboutValue = $cursor["_source"]["about"];
+    } else {
+        $aboutValue = "";
+    } 
+    
+    if (isset($cursor["_source"]["location"])) {
+        $locationValue = $cursor["_source"]["location"];
+    } else {
+        $locationValue = "";
+    }      
 
 }
 
